@@ -20,16 +20,21 @@ class GameLoopHandler {
 
     static pause = () => {
         if(this.on) {
-            clearInterval(this.intVar)
+            cancelAnimationFrame(this.intVar)
             this.on = false
         }
     }
 
     static start = () => {
         if(!this.on) {
-            this.intVar = setInterval(() => {
-                console.log("a")
-            },this.framerate)
+            const stop = (t) => {
+                this.intVar = requestAnimationFrame(() => {
+                    let now = new Date()
+                    ChannelHandler.sendMsg(0, now - t)
+                    stop(now)
+                })
+            }
+            requestAnimationFrame(() => {stop(new Date())})
             this.on = true
         }
     }
