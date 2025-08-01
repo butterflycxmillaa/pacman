@@ -1,5 +1,6 @@
 import ChannelHandler from "./ChannelHandler.js"
 import GameEntity from "./GameEntity.js"
+import GameEntityHandler from "./GameEntityHandler.js"
 
 class GameLoopHandler {
     static on = false
@@ -41,9 +42,19 @@ class GameLoopHandler {
     }
 }
 
+class KeyboardHandler {
+    static init = () => {
+        ChannelHandler.defineChannel(1)
+        document.body.addEventListener("keydown",(e) => {
+            ChannelHandler.sendMsg(1, e.keyCode)
+        })
+    }
+}
+
 GameLoopHandler.init()
-new GameEntity().setCallback((msg) => {
-    return !isNaN(msg)
+KeyboardHandler.init()
+GameEntityHandler.defineEntity("keyboard").setCallback((msg) => {
+    return true
 }, (msg) => {
-    console.log("numero")
-}).appendToChannel(0)
+    console.log(msg)
+}).appendToChannel(1)
