@@ -42,4 +42,8 @@ class GameLoopHandler {
 }
 
 GameLoopHandler.init()
-new GameEntity().appendToChannel(0)
+new GameEntity().setCallback((msg) => {
+    return !isNaN(msg)
+}, (msg) => {
+    console.log("numero")
+}).appendToChannel(0)
