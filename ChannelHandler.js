@@ -1,7 +1,7 @@
-import Channel from "./Channel"
+import Channel from "./Channel.js"
 
 export default class ChannelHandler {
-    channels = new Map();
+    static channels = new Map();
 
     static defineChannel = (id) => {
         this.channels.set(id, new Channel())
