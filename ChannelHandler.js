@@ -6,6 +6,10 @@ export default class ChannelHandler {
     static defineChannel = (id) => {
         this.channels.set(id, new Channel())
     }
+    
+    static getChannel = (id) => {
+        return null || this.channels.get(id)
+    }
 
     static deleteChannel = (id) => {
         this.channels.delete(id)

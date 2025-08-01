@@ -1,5 +1,10 @@
 export default class Channel {
+    entities = []
+    
     receive = (msg) => {
-        console.log(msg)
+        for(let entity of this.entities)
+        {
+            entity.receive(msg)
+        }
     }
 }

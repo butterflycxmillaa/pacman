@@ -1,4 +1,5 @@
 import ChannelHandler from "./ChannelHandler.js"
+import GameEntity from "./GameEntity.js"
 
 class GameLoopHandler {
     static on = false
@@ -41,3 +42,4 @@ class GameLoopHandler {
 }
 
 GameLoopHandler.init()
+new GameEntity().appendToChannel(0)
