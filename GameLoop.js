@@ -1,6 +1,7 @@
 import ChannelHandler from "./ChannelHandler.js"
-import GameEntity from "./GameEntity.js"
 import GameEntityHandler from "./GameEntityHandler.js"
+
+const settings = [37,38,39,40]
 
 class GameLoopHandler {
     static on = false
@@ -48,13 +49,19 @@ class KeyboardHandler {
         document.body.addEventListener("keydown",(e) => {
             ChannelHandler.sendMsg(1, e.keyCode)
         })
+        GameEntityHandler.defineEntity("keyboard").setCallback((msg) => {
+            return settings.includes(msg)
+        }, (msg) => {
+            console.log(msg)
+        }).appendToChannel(1)
+    }
+}
+
+class GenerationHandler {
+    static init = () => {
+        
     }
 }
 
 GameLoopHandler.init()
 KeyboardHandler.init()
-GameEntityHandler.defineEntity("keyboard").setCallback((msg) => {
-    return true
-}, (msg) => {
-    console.log(msg)
-}).appendToChannel(1)
