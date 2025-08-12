@@ -1,45 +1,36 @@
 class Graph {
     table = [
-        [0,0,[1,2],[7,1]],
-        [Infinity,null,[0,2,3,4],[7,5,2,1]],
-        [Infinity,null,[0,1,3],[1,5,4]],
-        [Infinity,null,[1,2,4],[2,4,3]],
-        [Infinity,null,[1,3],[1,3]],
-        [Infinity,0]
+        [[1,2],[3,3]],
+        [[0,2,3,4],[3,6,2,3]],
+        [[0,1,4,5],[3,6,4,7]],
+        [[1,4,5],[2,4,5]],
+        [[1,2,3,5],[3,4,4,2]],
+        [[2,3,4],[7,5,2]]
     ]
 
-    mapPointA = () => {
-        let u = this.table.length - 1
-        let visited = new Array(u).fill(0)
-        let unvisited = new Array(u).fill(1)
-        while(u > 0) {
-            let visiting = this.table[this.table.length - 1]
-            let visitingN = visiting[1]
-            visited[visitingN] = 1
-            unvisited[visitingN] = 0
-            u--
-            let point = this.table[visitingN]
-            let localDist = Infinity
-            let localP = null
-            for(let adj in point[2]) {
-                let adjN = point[2][adj]
-                if(unvisited[adjN]) {
-                    let dist = point[0] + point[3][adj]
-                    if(dist < this.table[adjN][0]) {
-                        this.table[adjN][0] = dist
-                        this.table[adjN][1] = visitingN
-                    }
-                    if(dist <= localDist) {
-                        localDist = dist
-                        localP = point[2][adj]
-                    }
-                }
-                this.table[this.table.length - 1] = [localDist, localP]
+    findShortestPath = (s,e) => {
+        return this.shortestPath(e,new Array(this.table.length).fill(0),[s])
+    }
+
+    shortestPath = (e,b,p) => {
+        let s = p[p.length - 1]
+        if(s == e) return [0, p]
+        if(b[s] == 1) return [Infinity, p]
+        let shortDist = Infinity
+        let shortPath = p
+        let newMap = [...b.slice(0,s),1,...b.slice(s+1,b.length)]
+        for(let node in this.table[s][0]) {
+            let newPath = [...p,this.table[s][0][node]]
+            let params = this.shortestPath(e,newMap,newPath)
+            let dist = this.table[s][1][node] + params[0]
+            if(dist < shortDist) {
+                shortDist = dist
+                shortPath = params[1]
             }
         }
+        return [shortDist,shortPath]
     }
 }
 
 let g = new Graph()
-g.mapPointA()
-console.log(g.table)
+console.log(g.findShortestPath(5,1))
