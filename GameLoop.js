@@ -1,5 +1,6 @@
 import ChannelHandler from "./ChannelHandler.js"
 import GameEntityHandler from "./GameEntityHandler.js"
+import GameplayHandler from "./GameplayHandler.js"
 
 const settings = [37,38,39,40]
 
@@ -9,14 +10,14 @@ class GameLoopHandler {
     static framerate = 30
 
     static init = () => {
-        document.getElementById("pauseBtn")
-        .addEventListener("click",() => {
-            this.pause()
-        })
-        document.getElementById("restartBtn")
-        .addEventListener("click",() => {
-            this.start()
-        })
+        // document.getElementById("pauseBtn")
+        // .addEventListener("click",() => {
+        //     this.pause()
+        // })
+        // document.getElementById("restartBtn")
+        // .addEventListener("click",() => {
+        //     this.start()
+        // })
         ChannelHandler.defineChannel(0)
         this.start()
     }
@@ -65,3 +66,4 @@ class GenerationHandler {
 
 GameLoopHandler.init()
 KeyboardHandler.init()
+GameplayHandler.init()
