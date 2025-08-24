@@ -3,6 +3,11 @@ import Channel from "./Channel.js"
 export default class ChannelHandler {
     static channels = new Map();
 
+    static init = () => {
+        this.defineChannel(0) // game loop
+        this.defineChannel(1) // entities
+    }
+
     static defineChannel = (id) => {
         this.channels.set(id, new Channel())
     }

@@ -142,9 +142,6 @@ export default class Graph {
             res.push(ref)
         }
         while(ref != e);
-        res.forEach((elem) => {
-            console.log(this.table[elem])
-        })
         return [temp[s][0], res]
     }
 }

@@ -7,18 +7,19 @@ export default class GameEntity {
     appendToChannel = (id) => {
         ChannelHandler.getChannel(id).entities.push(this)
     }
+}
 
-    receive = (msg) => {
-        for(let filter in this.filters) {
-            if(this.filters[filter](msg)) {
-                this.callbacks[filter](msg)
-            }
-        }
+export class Pacman extends GameEntity {
+    name = "pacman"
+    
+    constructor(spawnX,spawnY) {
+        super()
+        this.appendToChannel(1)
     }
 
-    setCallback = (filter, callback) => {
-        this.filters.push(filter)
-        this.callbacks.push(callback)
-        return this
+    receive = (msg) => {
+        if(!isNaN(msg)) {
+            console.log("P",msg)
+        }
     }
 }

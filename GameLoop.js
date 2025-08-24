@@ -44,26 +44,4 @@ class GameLoopHandler {
     }
 }
 
-class KeyboardHandler {
-    static init = () => {
-        ChannelHandler.defineChannel(1)
-        document.body.addEventListener("keydown",(e) => {
-            ChannelHandler.sendMsg(1, e.keyCode)
-        })
-        GameEntityHandler.defineEntity("keyboard").setCallback((msg) => {
-            return settings.includes(msg)
-        }, (msg) => {
-            console.log(msg)
-        }).appendToChannel(1)
-    }
-}
-
-class GenerationHandler {
-    static init = () => {
-        
-    }
-}
-
-GameLoopHandler.init()
-KeyboardHandler.init()
 GameplayHandler.init()
